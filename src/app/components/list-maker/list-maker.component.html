@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="end">
+            <ion-button (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>Create List</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-item slot="start">
+                <ion-label position="floating">List Name</ion-label>
+                <ion-input (ionChange)="nameChanged($event)"></ion-input>
+            </ion-item>
+
+            <ion-button color="secondary" (click)="create()">Create</ion-button>
+
+
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -8,8 +8,10 @@ import { ListsPageRoutingModule } from './lists-routing.module';
 
 import { ListsPage } from './lists.page';
 import { SharedModule } from '../../modules/shared/shared.module';
+import { ListMakerComponent } from '../../components/list-maker/list-maker.component';
 
 @NgModule({
+    entryComponents: [ListMakerComponent],
     imports: [
         SharedModule,
         CommonModule,
@@ -17,6 +19,6 @@ import { SharedModule } from '../../modules/shared/shared.module';
         IonicModule,
         ListsPageRoutingModule
     ],
-    declarations: [ListsPage]
+    declarations: [ListsPage, ListMakerComponent]
 })
 export class ListsPageModule { }
