@@ -2,7 +2,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let list of lists" [routerLink]="'/list/' + list.id">
+        <ion-item detail="true" *ngFor="let list of lists" [routerLink]="'/list/' + list.id">
             <ion-label>{{list.name}}</ion-label>
         </ion-item>
     </ion-list>

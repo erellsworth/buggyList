@@ -1,6 +1,5 @@
-export interface IList {
+export interface ICategory {
     name: string;
     id: string;
     color?: string;
-    categoryIds?: string[];
 }
