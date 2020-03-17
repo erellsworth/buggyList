@@ -10,4 +10,22 @@
 
 <ion-content>
 
+    <ion-list>
+        <ion-item>
+            <ion-label position="floating">Add Item</ion-label>
+            <ion-input autofocus="true" color="primary" clear-input="true" spellcheck="true"
+                (ionChange)="itemChanged($event)">
+            </ion-input>
+            <ion-icon name="add-circle-outline" slot="end" size="large" (click)="addItem()"></ion-icon>
+
+        </ion-item>
+
+        <ion-item *ngFor="let item of items()">
+            <ion-label>{{item.name}}</ion-label>
+            <ion-icon name="checkbox-outline" slot="end"></ion-icon>
+        </ion-item>
+    </ion-list>
+
+
+
 </ion-content>
