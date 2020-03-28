@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { ListStore } from '../../stores/list-store';
+import { ModalController, AlertController } from '@ionic/angular';
 
 import { v4 } from 'uuid';
-import { ICategory } from '../../interfaces/category';
-import { CategoryStore } from '../../stores/category-store';
-import { IList } from '../../interfaces/list';
+import { IList, IAppData } from '../../interfaces';
+import { MemoryHole } from '../../stores/memory-hole';
 
 @Component({
     selector: 'app-list-maker',
@@ -16,77 +14,53 @@ export class ListMakerComponent implements OnInit {
 
     public list: IList = {
         name: '',
-        id: v4(),
-        categoryIds: []
+        id: v4()
     }
 
-    public categories: ICategory[] = [];
-    public categoryInput: string;
-
-    private existingCategories: ICategory[] = [];
+    private lists: IList[] = [];
 
     constructor(
         private modal: ModalController,
-        private listStore: ListStore,
-        private categoryStore: CategoryStore
+        private alert: AlertController,
+        private store: MemoryHole
     ) {
-        this.categoryStore.categories.subscribe((categories: ICategory[]) => {
-            this.existingCategories = categories;
+        this.store.data.subscribe((data: IAppData) => {
+            this.lists = data.lists;
         });
     }
 
     ngOnInit() { }
+
+    private checkForDuplicate(): boolean {
+        let existingList: IList = this.lists.find((list: IList) => {
+            return list.name.toLowerCase() === this.list.name.toLowerCase();
+        });
+
+        if (existingList) { return true; }
+        return false;
+    }
 
     public async close(): Promise<void> {
         await this.modal.dismiss();
     }
 
     public async create(): Promise<void> {
-        await this.listStore.add(this.list);
+        if (this.checkForDuplicate()) {
+            const alert = await this.alert.create({
+                header: 'Duplicate List',
+                subHeader: 'A list with this name already exists.',
+                message: 'Please use another name.',
+                buttons: ['OK']
+            });
+
+            await alert.present();
+            return;
+        }
+        await this.store.add('lists', this.list);
         await this.close();
     }
 
     public nameChanged(event: any) {
         this.list.name = event.detail.value;
-    }
-
-    public getCategoryIds(): string[] {
-        return this.categories.map((category: ICategory) => {
-            return category.id;
-        });
-    }
-
-    public categoryInputChanged(event: any) {
-        this.categoryInput = event.detail.value;
-    }
-
-    public categorySuggestions(): ICategory[] {
-        if (!this.categoryInput) { return []; }
-
-        return this.existingCategories
-            .filter((category: ICategory): boolean => {
-                return category.name.toLowerCase().includes(this.categoryInput.toLowerCase());
-            }).filter((category: ICategory): boolean => {
-                return !this.list.categoryIds.includes(category.id);
-            });
-    }
-
-    public async addCategory() {
-        let categoryId: string = v4();
-
-        this.list.categoryIds.push(categoryId);
-
-        this.categoryStore.add({
-            name: this.categoryInput,
-            id: categoryId
-        });
-
-        this.categoryInput = '';
-    }
-
-    public selectCategory(category: ICategory) {
-        this.list.categoryIds.push(category.id);
-        this.categories.push(category);
-        this.categoryInput = '';
     }
 }

@@ -14,9 +14,10 @@
         <ion-item>
             <ion-label position="floating">Add Item</ion-label>
             <ion-input autofocus="true" color="primary" clear-input="true" spellcheck="true"
-                (ionChange)="itemChanged($event)">
+                (ionChange)="itemChanged($event)" [value]="pendingItem.name">
             </ion-input>
-            <ion-icon name="add-circle-outline" slot="end" size="large" (click)="addItem()"></ion-icon>
+            <ion-icon *ngIf="pendingItem.name" name="add-circle-outline" slot="end" size="large" (click)="addItem()">
+            </ion-icon>
 
         </ion-item>
 

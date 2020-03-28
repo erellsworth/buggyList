@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ListMakerComponent } from '../../components/list-maker/list-maker.component';
-import { ListStore } from '../../stores/list-store';
-import { IList } from '../../interfaces/list';
+import { IList, IAppData } from '../../interfaces';
+import { MemoryHole } from '../../stores/memory-hole';
 
 @Component({
     selector: 'app-lists',
@@ -15,11 +15,10 @@ export class ListsPage implements OnInit {
 
     constructor(
         private modal: ModalController,
-        private store: ListStore
+        private store: MemoryHole
     ) {
-        this.store.lists.subscribe((lists: IList[]) => {
-            console.log('updated lists', lists);
-            this.lists = lists;
+        this.store.data.subscribe((data: IAppData) => {
+            this.lists = data.lists;
         });
     }
 
@@ -31,5 +30,4 @@ export class ListsPage implements OnInit {
         });
         return await modal.present();
     }
-
 }

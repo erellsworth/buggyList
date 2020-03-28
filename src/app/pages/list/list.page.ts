@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ListStore } from '../../stores/list-store';
-import { IList, IListItem } from '../../interfaces/list';
-import { ItemStore } from '../../stores/item-store';
-import { ModalController } from '@ionic/angular';
 import { v4 } from 'uuid';
+import { IAppData, IList, IListItem } from '../../interfaces';
+import { MemoryHole } from '../../stores/memory-hole';
 
 @Component({
     selector: 'app-list',
@@ -15,27 +13,21 @@ export class ListPage implements OnInit {
 
     public list: IList;
     private savedItems: IListItem[];
-    private pendingItem: IListItem = {
+    public pendingItem: IListItem = {
         name: '',
         id: v4()
     };
 
     constructor(
-        private modal: ModalController,
         private route: ActivatedRoute,
-        private store: ListStore,
-        private itemStore: ItemStore
+        private store: MemoryHole
     ) {
         let id: string = this.route.snapshot.paramMap.get('id');
 
-        this.store.lists.subscribe((lists: IList[]) => {
-            this.list = lists.find((list: IList) => {
+        this.store.data.subscribe((data: IAppData) => {
+            this.list = data.lists.find((list: IList) => {
                 return list.id === id;
             });
-        });
-
-        this.itemStore.items.subscribe((items: IListItem[]) => {
-            this.savedItems = items;
         });
     }
 
@@ -56,5 +48,16 @@ export class ListPage implements OnInit {
 
     public async addItem() {
         console.log(this.pendingItem);
+
+        this.store.add('items', this.pendingItem);
+
+        this.list.itemIds.push(this.pendingItem.id);
+
+        this.pendingItem = {
+            name: '',
+            id: v4()
+        }
+
+
     }
 }
