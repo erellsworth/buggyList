@@ -14,7 +14,9 @@ export class ListMakerComponent implements OnInit {
 
     public list: IList = {
         name: '',
-        id: v4()
+        id: v4(),
+        itemIds: [],
+        completedItemIds: []
     }
 
     private lists: IList[] = [];
@@ -56,6 +58,7 @@ export class ListMakerComponent implements OnInit {
             await alert.present();
             return;
         }
+
         await this.store.add('lists', this.list);
         await this.close();
     }

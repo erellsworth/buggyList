@@ -18,8 +18,8 @@ interface IHasColor extends IBaseInterface {
  */
 
 export interface IList extends IHasColor {
-    itemIds?: string[];
-    completedItemIds?: string[];
+    itemIds: string[];
+    completedItemIds: string[];
 }
 
 export interface ICategory extends IHasColor { }

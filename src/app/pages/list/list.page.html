@@ -9,24 +9,26 @@
 </ion-header>
 
 <ion-content>
-
     <ion-list>
         <ion-item>
             <ion-label position="floating">Add Item</ion-label>
-            <ion-input autofocus="true" color="primary" clear-input="true" spellcheck="true"
-                (ionChange)="itemChanged($event)" [value]="pendingItem.name">
-            </ion-input>
+            <form (submit)="addItem()">
+                <ion-input autofocus="true" color="primary" clear-input="true" spellcheck="true"
+                    (ionChange)="itemChanged($event)" [value]="pendingItem.name">
+                </ion-input>
+            </form>
             <ion-icon *ngIf="pendingItem.name" name="add-circle-outline" slot="end" size="large" (click)="addItem()">
             </ion-icon>
+        </ion-item>
 
+        <ion-item *ngIf="suggestedItems && suggestedItems.length">
+            <ion-chip *ngFor="let item of suggestedItems" color="primary">{{item.name}}</ion-chip>
         </ion-item>
 
         <ion-item *ngFor="let item of items()">
             <ion-label>{{item.name}}</ion-label>
+            <ion-icon name="settings-outline" slot="end"></ion-icon>
             <ion-icon name="checkbox-outline" slot="end"></ion-icon>
         </ion-item>
     </ion-list>
-
-
-
 </ion-content>
