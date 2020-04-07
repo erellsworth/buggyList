@@ -42,6 +42,10 @@ export class ListMakerComponent implements OnInit {
         return false;
     }
 
+    public colorChanged(color: string) {
+        this.list.color = color;
+    }
+
     public async close(): Promise<void> {
         await this.modal.dismiss();
     }
@@ -58,6 +62,8 @@ export class ListMakerComponent implements OnInit {
             await alert.present();
             return;
         }
+
+        console.log('add', this.list);
 
         await this.store.add('lists', this.list);
         await this.close();

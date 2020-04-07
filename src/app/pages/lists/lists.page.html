@@ -3,7 +3,10 @@
 <ion-content>
     <ion-list>
         <ion-item detail="true" *ngFor="let list of lists" [routerLink]="'/list/' + list.id">
-            <ion-label>{{list.name}}</ion-label>
+            <div class="color-wrapper" [style.border-color]="list.color">
+                <ion-label class="list__label">{{list.name}} {{list.color}}
+                </ion-label>
+            </div>
         </ion-item>
     </ion-list>
 

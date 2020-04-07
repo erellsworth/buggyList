@@ -22,6 +22,11 @@
                     </ion-input>
                 </ion-item>
 
+                <ion-item>
+                    <ion-label position="stacked">Default Item Color</ion-label>
+                    <app-color-input (onUpdate)="colorChanged($event)"></app-color-input>
+                </ion-item>
+
             </ion-item-group>
 
             <ion-button [disabled]="!list.name" color="secondary" (click)="create()">Create</ion-button>

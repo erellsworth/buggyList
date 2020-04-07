@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
 import { IonicModule } from '@ionic/angular';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { HeaderComponent } from '../../components/header/header.component';
+import { ColorInputComponent } from '../../components/color-input/color-input.component';
+
 
 @NgModule({
-    declarations: [HeaderComponent],
+    declarations: [HeaderComponent, ColorInputComponent],
     imports: [
         CommonModule,
-        IonicModule
+        IonicModule,
+        ColorPickerModule
     ],
-    exports: [HeaderComponent]
+    exports: [
+        HeaderComponent,
+        ColorInputComponent,
+        ColorPickerModule
+    ]
 })
 export class SharedModule { }
