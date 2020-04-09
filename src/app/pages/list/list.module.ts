@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { ListPageRoutingModule } from './list-routing.module';
 
 import { ListPage } from './list.page';
+import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ListPageRoutingModule
-  ],
-  declarations: [ListPage]
+    entryComponents: [ListEditorComponent],
+    imports: [
+        SharedModule,
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ListPageRoutingModule
+    ],
+    declarations: [ListPage, ListEditorComponent]
 })
-export class ListPageModule {}
+export class ListPageModule { }

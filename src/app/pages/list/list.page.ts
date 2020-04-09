@@ -4,7 +4,8 @@ import { v4 } from 'uuid';
 import { IAppData, IList, IListItem } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 
 @Component({
     selector: 'app-list',
@@ -24,7 +25,8 @@ export class ListPage implements OnInit {
         private alert: AlertController,
         private route: ActivatedRoute,
         private store: MemoryHole,
-        private util: UtilitiesService
+        private util: UtilitiesService,
+        private modal: ModalController
     ) {
         let id: string = this.route.snapshot.paramMap.get('id');
 
@@ -81,5 +83,16 @@ export class ListPage implements OnInit {
             name: '',
             id: v4()
         }
+    }
+
+    /**
+     * openEditor
+     */
+    public async openEditor(): Promise<void> {
+        const modal = await this.modal.create({
+            component: ListEditorComponent
+        });
+
+        return await modal.present();
     }
 }
