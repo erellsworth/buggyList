@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { IList } from '../../interfaces';
+import { MemoryHole } from '../../stores/memory-hole';
 
 @Component({
     selector: 'app-list-editor',
@@ -9,10 +10,11 @@ import { IList } from '../../interfaces';
 })
 export class ListEditorComponent implements OnInit {
 
-    public list: IList;
+    @Input() list: IList;
 
     constructor(
-        private modal: ModalController
+        private modal: ModalController,
+        private store: MemoryHole
     ) { }
 
     ngOnInit() { }
@@ -21,7 +23,16 @@ export class ListEditorComponent implements OnInit {
         await this.modal.dismiss();
     }
 
+    public colorChanged(color: string) {
+        this.list.color = color;
+    }
+
     public nameChanged(event: any) {
         this.list.name = event.detail.value;
+    }
+
+    public async save() {
+        await this.store.update('lists', this.list);
+        await this.close();
     }
 }

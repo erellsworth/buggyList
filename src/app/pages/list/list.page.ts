@@ -90,7 +90,10 @@ export class ListPage implements OnInit {
      */
     public async openEditor(): Promise<void> {
         const modal = await this.modal.create({
-            component: ListEditorComponent
+            component: ListEditorComponent,
+            componentProps: {
+                list: this.list
+            }
         });
 
         return await modal.present();

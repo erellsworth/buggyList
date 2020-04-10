@@ -20,7 +20,7 @@ export class MemoryHole {
         this.init();
     }
 
-    private async init() {
+    private async init(): Promise<void> {
         let data = await this.storage.get('data') as IAppData;
 
         if (data) { this._data = data; }
@@ -28,7 +28,7 @@ export class MemoryHole {
         await this.broadcastUpdate();
     }
 
-    private async broadcastUpdate() {
+    private async broadcastUpdate(): Promise<void> {
         await this.storage.set('data', this._data);
         this.observer.next(this._data);
     }
@@ -42,16 +42,26 @@ export class MemoryHole {
         return this.observer.asObservable();
     }
 
-    public async add(key: string, item: IList | IListItem | ICategory) {
+    public async add(key: string, item: IList | IListItem | ICategory): Promise<void> {
         this._data[key].push(item);
         await this.broadcastUpdate();
     }
 
-    public async delete(key: string, id: string) {
-        this._data[key] = this._data[key].filter((item: IList | IListItem | ICategory) => {
+    public async delete(key: string, id: string): Promise<void> {
+        this._data[key] = this._data[key].filter((item: IList | IListItem | ICategory): boolean => {
             return item.id !== id;
         });
 
+        await this.broadcastUpdate();
+    }
+
+    public async update(key: string, updatedItem: IList | IListItem | ICategory): Promise<void> {
+        this._data[key] = this._data[key].map((item: IList | IListItem | ICategory) => {
+            if (updatedItem.id === item.id) {
+                return updatedItem;
+            }
+            return item;
+        });
         await this.broadcastUpdate();
     }
 }
