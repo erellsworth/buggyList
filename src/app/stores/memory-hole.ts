@@ -2,11 +2,23 @@ import { Storage } from '@ionic/storage';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { IAppData, IList, IListItem, ICategory } from '../interfaces';
+import { UtilitiesService } from '../utilities.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MemoryHole {
+
+    private defaultLists: IList[] = [
+        {
+            id: 'default_',
+            name: 'Groceries',
+            color: '#cccccc',
+            itemIds: [],
+            completedItemIds: []
+        }
+    ];
+
     private _data: IAppData = {
         lists: [],
         categories: [],
@@ -23,7 +35,11 @@ export class MemoryHole {
     private async init(): Promise<void> {
         let data = await this.storage.get('data') as IAppData;
 
-        if (data) { this._data = data; }
+        if (data) {
+            this._data = data;
+        } else {
+            this._data.lists = this.defaultLists;
+        }
 
         await this.broadcastUpdate();
     }

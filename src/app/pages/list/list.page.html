@@ -22,13 +22,14 @@
         </ion-item>
 
         <ion-item *ngIf="suggestedItems && suggestedItems.length">
-            <ion-chip *ngFor="let item of suggestedItems" color="primary">{{item.name}}</ion-chip>
+            <ion-chip *ngFor="let item of suggestedItems" color="primary" (click)="addItem(item)">{{item.name}}
+            </ion-chip>
         </ion-item>
 
         <ion-item *ngFor="let item of items()">
             <ion-label>{{item.name}}</ion-label>
-            <ion-icon name="settings-outline" slot="end" size="small"></ion-icon>
-            <ion-icon name="checkbox-outline" slot="end" size="small"></ion-icon>
+            <!-- <ion-icon name="settings-outline" slot="end" size="small"></ion-icon> -->
+            <ion-icon [name]="getCheckboxIcon(item)" slot="end" size="small" (click)="toggleItem(item)"></ion-icon>
             <app-color-marker slot="end" [color]="list.color"></app-color-marker>
         </ion-item>
     </ion-list>
