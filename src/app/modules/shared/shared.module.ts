@@ -4,10 +4,11 @@ import { IonicModule } from '@ionic/angular';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ColorInputComponent } from '../../components/color-input/color-input.component';
+import { ColorMarkerComponent } from '../../components/color-marker/color-marker.component';
 
 
 @NgModule({
-    declarations: [HeaderComponent, ColorInputComponent],
+    declarations: [HeaderComponent, ColorInputComponent, ColorMarkerComponent],
     imports: [
         CommonModule,
         IonicModule,
@@ -16,7 +17,8 @@ import { ColorInputComponent } from '../../components/color-input/color-input.co
     exports: [
         HeaderComponent,
         ColorInputComponent,
-        ColorPickerModule
+        ColorPickerModule,
+        ColorMarkerComponent
     ]
 })
 export class SharedModule { }

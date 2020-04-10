@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'app-color-input',
@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ColorInputComponent implements OnInit {
 
+    @Input() color: string;
     @Output() onUpdate: EventEmitter<string> = new EventEmitter();
 
     constructor() { }

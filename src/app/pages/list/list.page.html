@@ -1,6 +1,6 @@
-<ion-header>
+<ion-header *ngIf="list">
     <ion-toolbar [style.border-color]="list.color" class="color__border">
-        <ion-title *ngIf="list" slot="start">{{list.name}}</ion-title>
+        <ion-title slot="start">{{list.name}}</ion-title>
         <ion-buttons slot="end">
             <ion-back-button defaultHref="tabs/lists" icon="close">
             </ion-back-button>
@@ -27,8 +27,9 @@
 
         <ion-item *ngFor="let item of items()">
             <ion-label>{{item.name}}</ion-label>
-            <ion-icon name="settings-outline" slot="end"></ion-icon>
-            <ion-icon name="checkbox-outline" slot="end"></ion-icon>
+            <ion-icon name="settings-outline" slot="end" size="small"></ion-icon>
+            <ion-icon name="checkbox-outline" slot="end" size="small"></ion-icon>
+            <app-color-marker slot="end" [color]="list.color"></app-color-marker>
         </ion-item>
     </ion-list>
 </ion-content>

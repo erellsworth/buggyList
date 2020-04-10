@@ -1,0 +1,10 @@
+:host {
+    height: 100%;
+    .color-marker {
+        display: block;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+    }
+}

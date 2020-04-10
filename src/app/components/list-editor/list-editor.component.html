@@ -23,7 +23,7 @@
 
                 <ion-item>
                     <ion-label position="stacked">Default Item Color</ion-label>
-                    <app-color-input (onUpdate)="colorChanged($event)"></app-color-input>
+                    <app-color-input (onUpdate)="colorChanged($event)" [color]="list.color"></app-color-input>
                 </ion-item>
 
             </ion-item-group>
