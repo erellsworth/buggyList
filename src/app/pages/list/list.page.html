@@ -26,12 +26,20 @@
             </ion-chip>
         </ion-item>
 
-        <ion-item *ngFor="let item of items()">
-            <ion-label>{{item.name}}</ion-label>
-            <!-- <ion-icon name="settings-outline" slot="end" size="small"></ion-icon> -->
-            <ion-icon [name]="getCheckboxIcon(item)" slot="end" size="small" (click)="toggleItem(item)"></ion-icon>
-            <app-color-marker slot="end" [color]="list.color"></app-color-marker>
-        </ion-item>
+        <ion-reorder-group id="reorder" disabled="false" (ionItemReorder)="itemsReordered($event)">
+
+            <ion-item *ngFor="let item of items()">
+                <ion-reorder>
+                    <ion-label>{{item.name}}</ion-label>
+                </ion-reorder>
+                <!-- <ion-icon name="settings-outline" slot="end" size="small"></ion-icon> -->
+                <ion-icon [name]="getCheckboxIcon(item)" slot="end" size="small" (click)="toggleItem(item)">
+                </ion-icon>
+                <app-color-marker slot="end" [color]="list.color"></app-color-marker>
+
+            </ion-item>
+
+        </ion-reorder-group>
     </ion-list>
 </ion-content>
 

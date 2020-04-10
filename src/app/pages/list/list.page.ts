@@ -31,15 +31,17 @@ export class ListPage implements OnInit {
         let id: string = this.route.snapshot.paramMap.get('id');
 
         this.store.data.subscribe((data: IAppData) => {
-            this.list = data.lists.find((list: IList) => {
+            let list: IList = data.lists.find((list: IList) => {
                 return list.id === id;
             });
+            this.list = this.util.normalizeList(list);
         });
     }
 
     ngOnInit() { }
 
     private checkForDuplicate(): boolean {
+
         let existingItemId: string = this.list.itemIds.find((itemId: string): boolean => {
             let item = this.util.findItem(itemId);
             return item.name.toLowerCase() === this.pendingItem.name.toLowerCase();
@@ -66,11 +68,6 @@ export class ListPage implements OnInit {
     }
 
     public async addItem(item?: IListItem) {
-        console.log('addItem');
-
-        if (item) {
-            this.pendingItem = item;
-        }
 
         if (!item && this.checkForDuplicate()) {
             const alert = await this.alert.create({
@@ -83,9 +80,14 @@ export class ListPage implements OnInit {
             return;
         }
 
-        this.store.add('items', this.pendingItem);
+        if (!item) {
+            item = this.pendingItem;
+            this.store.add('items', this.pendingItem);
+        }
 
-        this.list.itemIds.push(this.pendingItem.id);
+        this.list.itemIds.push(item.id);
+
+        this.store.update('lists', this.list);
 
         this.pendingItem = {
             name: '',
@@ -111,7 +113,6 @@ export class ListPage implements OnInit {
      * toggleItem
      */
     public toggleItem(item: IListItem): void {
-        console.log('item', item);
         if (this.isComplete(item)) {
             this.list.completedItemIds = this.list.completedItemIds.filter((id: string): boolean => {
                 return id !== item.id;
@@ -130,5 +131,14 @@ export class ListPage implements OnInit {
         if (this.isComplete(item)) { return 'checkbox'; }
 
         return 'checkbox-outline';
+    }
+
+    /**
+     * itemsReordered
+     */
+    public itemsReordered(event: any) {
+        this.list.itemIds = event.detail.complete(this.list.itemIds);
+
+        this.store.update('lists', this.list);
     }
 }

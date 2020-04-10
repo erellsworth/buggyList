@@ -61,8 +61,17 @@ export class UtilitiesService {
 
         if (!list) { return matchingItems; }
 
+        list = this.normalizeList(list);
+
         return matchingItems.filter((item: IListItem): boolean => {
             return !list.itemIds.includes(item.id) && !list.completedItemIds.includes(item.id);
         });
+    }
+
+    public normalizeList(list: IList): IList {
+        return Object.assign({
+            itemIds: [],
+            completedItemIds: []
+        }, list);
     }
 }
