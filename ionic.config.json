@@ -1,7 +1,8 @@
 {
   "name": "buggyList",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
