@@ -30,4 +30,13 @@ export class ListsPage implements OnInit {
         });
         return await modal.present();
     }
+
+    /**
+     * itemsReordered
+     */
+    public itemsReordered(event: any) {
+        this.lists = event.detail.complete(this.lists);
+
+        this.store.updateAll('lists', this.lists);
+    }
 }

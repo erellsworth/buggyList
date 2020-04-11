@@ -35,7 +35,7 @@ export class ListEditorComponent implements OnInit {
     }
 
     public async save(): Promise<void> {
-        await this.store.update('lists', this.list);
+        await this.store.updateSingle('lists', this.list);
         await this.close();
     }
 }

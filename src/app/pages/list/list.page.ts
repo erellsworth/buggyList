@@ -91,7 +91,7 @@ export class ListPage implements OnInit {
 
         this.list.itemIds.push(item.id);
 
-        this.store.update('lists', this.list);
+        this.store.updateSingle('lists', this.list);
 
         this.pendingItem = {
             name: '',
@@ -125,7 +125,7 @@ export class ListPage implements OnInit {
             this.list.completedItemIds.push(item.id);
         }
 
-        this.store.update('lists', this.list);
+        this.store.updateSingle('lists', this.list);
     }
 
     /**
@@ -143,6 +143,6 @@ export class ListPage implements OnInit {
     public itemsReordered(event: any) {
         this.list.itemIds = event.detail.complete(this.list.itemIds);
 
-        this.store.update('lists', this.list);
+        this.store.updateSingle('lists', this.list);
     }
 }

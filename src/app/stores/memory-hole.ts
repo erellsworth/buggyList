@@ -97,13 +97,18 @@ export class MemoryHole {
         await this.broadcastUpdate();
     }
 
-    public async update(key: string, updatedItem: IBaseData): Promise<void> {
+    public async updateSingle(key: string, updatedItem: IBaseData): Promise<void> {
         this._data[key] = this._data[key].map((item: IBaseData) => {
             if (updatedItem.id === item.id) {
                 return updatedItem;
             }
             return item;
         });
+        await this.broadcastUpdate();
+    }
+
+    public async updateAll(key: string, updatedItems: IBaseData[]): Promise<void> {
+        this._data[key] = updatedItems;
         await this.broadcastUpdate();
     }
 }
