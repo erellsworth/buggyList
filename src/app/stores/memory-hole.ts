@@ -12,7 +12,7 @@ import config from '../../../firebase.config';
 })
 export class MemoryHole {
 
-    private database: firebase.database.Database;
+    private database: firebase.database.Reference;
 
     private defaultLists: IList[] = [
         {
@@ -35,17 +35,22 @@ export class MemoryHole {
     constructor(private storage: Storage) {
         this.observer = <BehaviorSubject<IAppData>>new BehaviorSubject(this._data);
         firebase.initializeApp(config);
-        this.database = firebase.database();
+        let db = firebase.database();
+        this.database = db.ref('/');
 
         this.init();
     }
 
     private async init(): Promise<void> {
         let data: IAppData;
-
+        console.log('init');
         try {
-            let remoteData = await this.database.ref('/').once('value');
+            let remoteData = await this.database.once('value');
             data = remoteData.val();
+            this.database.on('value', (data: firebase.database.DataSnapshot) => {
+                this._data = data.val();
+                this.broadcastUpdate(false);
+            });
         } catch (error) {
             let localData = await this.storage.get('data');
             data = localData;
@@ -60,9 +65,12 @@ export class MemoryHole {
         await this.broadcastUpdate();
     }
 
-    private async broadcastUpdate(): Promise<void> {
+    private async broadcastUpdate(updateFirebase: boolean = true): Promise<void> {
         await this.storage.set('data', this._data);
-        this.database.ref('/').set(this._data);
+        if (updateFirebase) {
+            this.database.set(this._data);
+        }
+
         this.observer.next(this._data);
     }
 
