@@ -42,7 +42,7 @@ export class ListMakerComponent implements OnInit {
         return false;
     }
 
-    public colorChanged(color: string) {
+    public colorChanged(color: string): void {
         this.list.color = color;
     }
 
@@ -69,7 +69,7 @@ export class ListMakerComponent implements OnInit {
         await this.close();
     }
 
-    public nameChanged(event: any) {
+    public nameChanged(event: any): void {
         this.list.name = event.detail.value;
     }
 }

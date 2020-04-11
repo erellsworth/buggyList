@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="list">
     <ion-toolbar color="secondary">
         <ion-buttons slot="end">
             <ion-button (click)="close()">
@@ -10,7 +10,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="list">
     <ion-card>
         <ion-card-content>
             <ion-item-group>

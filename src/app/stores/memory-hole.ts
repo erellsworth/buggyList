@@ -7,6 +7,9 @@ import "firebase/database";
 
 import config from '../../../firebase.config';
 
+firebase.initializeApp(config);
+const db = firebase.database();
+
 @Injectable({
     providedIn: 'root'
 })
@@ -34,8 +37,6 @@ export class MemoryHole {
 
     constructor(private storage: Storage) {
         this.observer = <BehaviorSubject<IAppData>>new BehaviorSubject(this._data);
-        firebase.initializeApp(config);
-        let db = firebase.database();
         this.database = db.ref('/');
 
         this.init();
@@ -68,7 +69,7 @@ export class MemoryHole {
     private async broadcastUpdate(updateFirebase: boolean = true): Promise<void> {
         await this.storage.set('data', this._data);
         if (updateFirebase) {
-            this.database.set(this._data);
+            await this.database.set(this._data);
         }
 
         this.observer.next(this._data);

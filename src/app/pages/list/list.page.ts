@@ -28,7 +28,11 @@ export class ListPage implements OnInit {
         private util: UtilitiesService,
         private modal: ModalController
     ) {
-        let id: string = this.route.snapshot.paramMap.get('id');
+        let id: string = '';
+
+        if (this.route.snapshot.paramMap) {
+            id = this.route.snapshot.paramMap.get('id');
+        }
 
         this.store.data.subscribe((data: IAppData) => {
             let list: IList = data.lists.find((list: IList) => {

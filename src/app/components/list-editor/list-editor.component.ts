@@ -23,15 +23,18 @@ export class ListEditorComponent implements OnInit {
         await this.modal.dismiss();
     }
 
-    public colorChanged(color: string) {
+    public colorChanged(color: string): void {
+        if (!this.list) { return; }
         this.list.color = color;
     }
 
-    public nameChanged(event: any) {
+    public nameChanged(event: any): void {
+        if (!this.list) { return; }
+
         this.list.name = event.detail.value;
     }
 
-    public async save() {
+    public async save(): Promise<void> {
         await this.store.update('lists', this.list);
         await this.close();
     }
