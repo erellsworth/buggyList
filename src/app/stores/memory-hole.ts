@@ -1,7 +1,7 @@
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { IAppData, IList, IListItem, ICategory } from '../interfaces';
+import { IAppData, IList, IBaseData } from '../interfaces';
 import * as firebase from "firebase/app";
 import "firebase/database";
 
@@ -83,21 +83,21 @@ export class MemoryHole {
         return this.observer.asObservable();
     }
 
-    public async add(key: string, item: IList | IListItem | ICategory): Promise<void> {
+    public async add(key: string, item: IBaseData): Promise<void> {
         this._data[key].push(item);
         await this.broadcastUpdate();
     }
 
     public async delete(key: string, id: string): Promise<void> {
-        this._data[key] = this._data[key].filter((item: IList | IListItem | ICategory): boolean => {
+        this._data[key] = this._data[key].filter((item: IBaseData): boolean => {
             return item.id !== id;
         });
 
         await this.broadcastUpdate();
     }
 
-    public async update(key: string, updatedItem: IList | IListItem | ICategory): Promise<void> {
-        this._data[key] = this._data[key].map((item: IList | IListItem | ICategory) => {
+    public async update(key: string, updatedItem: IBaseData): Promise<void> {
+        this._data[key] = this._data[key].map((item: IBaseData) => {
             if (updatedItem.id === item.id) {
                 return updatedItem;
             }

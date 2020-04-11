@@ -1,10 +1,10 @@
 
-interface IBaseInterface {
+export interface IBaseData {
     id: string;
     name: string;
 }
 
-interface IHasColor extends IBaseInterface {
+interface IHasColor extends IBaseData {
     color?: string;
 }
 
