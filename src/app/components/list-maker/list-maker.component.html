@@ -28,8 +28,8 @@
                 </ion-item>
 
                 <ion-item>
-                    <ion-label position="stacked">Default Item Category</ion-label>
-                    <app-category-selector (onSelect)="categorySelected($event)"></app-category-selector>
+                    <app-category-selector (onSelect)="categorySelected($event)" placeholderText="Default Category">
+                    </app-category-selector>
                 </ion-item>
 
             </ion-item-group>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IAppData, ICategory } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { v4 } from 'uuid';
@@ -10,7 +10,11 @@ import { v4 } from 'uuid';
 })
 export class CategorySelectorComponent implements OnInit {
 
+    @Input() placeholderText: string = 'Category Name';
+
     @Output() onSelect: EventEmitter<ICategory> = new EventEmitter();
+
+    public selectedCategory: ICategory;
 
     public pendingCategory: ICategory = {
         id: v4(),
@@ -61,8 +65,10 @@ export class CategorySelectorComponent implements OnInit {
     public selectCategory(category?: ICategory): void {
         if (category) {
             this.onSelect.emit(category);
+            this.selectedCategory = category;
         } else {
             this.onSelect.emit(this.pendingCategory);
+            this.selectedCategory = Object.assign({}, this.pendingCategory);
         }
     }
 
@@ -70,6 +76,10 @@ export class CategorySelectorComponent implements OnInit {
         return this.existingCategories.some((category: ICategory): boolean => {
             return category.name.toLowerCase() === this.pendingCategory.name.toLowerCase();
         });
+    }
+
+    public clearSelected(): void {
+        this.selectedCategory = null;
     }
 
 }
