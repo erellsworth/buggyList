@@ -1,0 +1,14 @@
+<!-- Default Searchbar -->
+<ion-searchbar (ionChange)="inputChanged($event)" placeholder="Category name"></ion-searchbar>
+
+<ion-button *ngIf="pendingCategory.name && !pendingCategoryExists()" (click)="createCategory()">Create
+    "{{pendingCategory.name}}" Category
+</ion-button>
+
+<ion-text *ngIf="categorySuggestions().length">
+    <h2>Suggestions:</h2>
+</ion-text>
+
+<ion-chip *ngFor="let category of categorySuggestions()" (click)="selectCategory(category)" color="primary">
+    <ion-label>{{category.name}}</ion-label>
+</ion-chip>
