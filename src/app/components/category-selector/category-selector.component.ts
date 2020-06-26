@@ -11,10 +11,9 @@ import { v4 } from 'uuid';
 export class CategorySelectorComponent implements OnInit {
 
     @Input() placeholderText: string = 'Category Name';
+    @Input() selectedCategory?: ICategory;
 
     @Output() onSelect: EventEmitter<ICategory> = new EventEmitter();
-
-    public selectedCategory: ICategory;
 
     public pendingCategory: ICategory = {
         id: v4(),

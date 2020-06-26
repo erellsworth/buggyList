@@ -25,7 +25,6 @@ import { ItemEditorComponent } from '../../components/item-editor/item-editor.co
     ],
     declarations: [
         ListPage,
-        ListEditorComponent,
         ItemEditorComponent
     ]
 })

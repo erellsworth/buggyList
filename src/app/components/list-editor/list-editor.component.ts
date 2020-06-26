@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { IList } from '../../interfaces';
+import { ModalController, AlertController } from '@ionic/angular';
+import { IList, ICategory, IAppData } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
+import { v4 } from 'uuid';
 
 @Component({
     selector: 'app-list-editor',
@@ -10,14 +11,49 @@ import { MemoryHole } from '../../stores/memory-hole';
 })
 export class ListEditorComponent implements OnInit {
 
-    @Input() list: IList;
+    @Input() list?: IList;
+
+    private lists: IList[] = [];
+    private isNewList: boolean;
+
+    public buttonText: string = "save";
+    public title: string = 'Edit';
 
     constructor(
+        private alert: AlertController,
         private modal: ModalController,
         private store: MemoryHole
-    ) { }
+    ) {
+        this.store.data.subscribe((data: IAppData) => {
+            this.lists = data.lists;
+        });
+    }
 
-    ngOnInit() { }
+    ngOnInit() {
+        if (!this.list) {
+            this.list = {
+                name: '',
+                id: v4(),
+                itemIds: [],
+                completedItemIds: []
+            };
+            this.isNewList = true;
+            this.buttonText = 'Create';
+            this.title = 'Create New List';
+        } else {
+            this.isNewList = false;
+            this.title += ' ' + this.list.name;
+        }
+    }
+
+    private checkForDuplicate(): boolean {
+        let existingList: IList = this.lists.find((list: IList) => {
+            return list.name.toLowerCase() === this.list.name.toLowerCase();
+        });
+
+        if (existingList) { return true; }
+        return false;
+    }
 
     public async close(): Promise<void> {
         await this.modal.dismiss();
@@ -35,7 +71,36 @@ export class ListEditorComponent implements OnInit {
     }
 
     public async save(): Promise<void> {
+        if (this.isNewList) {
+            await this.create();
+        } else {
+            await this.update();
+        }
+    }
+
+    public async update(): Promise<void> {
         await this.store.updateSingle('lists', this.list);
         await this.close();
+    }
+
+    public async create(): Promise<void> {
+        if (this.checkForDuplicate()) {
+            const alert = await this.alert.create({
+                header: 'Duplicate List',
+                subHeader: 'A list with this name already exists.',
+                message: 'Please use another name.',
+                buttons: ['OK']
+            });
+
+            await alert.present();
+            return;
+        }
+
+        await this.store.add('lists', this.list);
+        await this.close();
+    }
+
+    public categorySelected(category: ICategory) {
+        this.list.defaultCategoryId = category.id;
     }
 }

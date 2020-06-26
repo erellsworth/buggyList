@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { ColorInputComponent } from '../../components/color-input/color-input.component';
 import { ColorMarkerComponent } from '../../components/color-marker/color-marker.component';
 import { CategorySelectorComponent } from '../../components/category-selector/category-selector.component';
+import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { CategorySelectorComponent } from '../../components/category-selector/ca
         HeaderComponent,
         ColorInputComponent,
         ColorMarkerComponent,
-        CategorySelectorComponent
+        CategorySelectorComponent,
+        ListEditorComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +27,8 @@ import { CategorySelectorComponent } from '../../components/category-selector/ca
         ColorInputComponent,
         ColorPickerModule,
         ColorMarkerComponent,
-        CategorySelectorComponent
+        CategorySelectorComponent,
+        ListEditorComponent
     ]
 })
 export class SharedModule { }
