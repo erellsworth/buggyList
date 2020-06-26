@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 
 import { v4 } from 'uuid';
-import { IList, IAppData } from '../../interfaces';
+import { IList, IAppData, ICategory } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 
 @Component({
@@ -44,6 +44,14 @@ export class ListMakerComponent implements OnInit {
 
     public colorChanged(color: string): void {
         this.list.color = color;
+    }
+
+    /**
+     * categorySelected
+     */
+    public categorySelected(category: ICategory) {
+        console.log('categorySelected', category);
+        this.list.defaultCategoryId = category.id;
     }
 
     public async close(): Promise<void> {
