@@ -85,6 +85,9 @@ export class MemoryHole {
     }
 
     public async add(key: string, item: IBaseData): Promise<void> {
+        if (!this._data[key]) {
+            this._data[key] = [];
+        }
         this._data[key].push(item);
         await this.broadcastUpdate();
     }
