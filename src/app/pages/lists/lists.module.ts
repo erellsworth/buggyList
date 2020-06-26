@@ -11,7 +11,9 @@ import { SharedModule } from '../../modules/shared/shared.module';
 import { ListMakerComponent } from '../../components/list-maker/list-maker.component';
 
 @NgModule({
-    entryComponents: [ListMakerComponent],
+    entryComponents: [
+        ListMakerComponent
+    ],
     imports: [
         SharedModule,
         CommonModule,

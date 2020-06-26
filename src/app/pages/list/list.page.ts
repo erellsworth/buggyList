@@ -6,6 +6,7 @@ import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
+import { ItemEditorComponent } from '../../components/item-editor/item-editor.component';
 
 @Component({
     selector: 'app-list',
@@ -111,6 +112,22 @@ export class ListPage implements OnInit {
         });
 
         return await modal.present();
+    }
+
+    /**
+     * editItem
+     */
+    public async editItem(item: IListItem) {
+        const modal = await this.modal.create({
+            component: ItemEditorComponent,
+            componentProps: {
+                list: this.list,
+                item: item
+            }
+        });
+
+        return await modal.present();
+
     }
 
     /**

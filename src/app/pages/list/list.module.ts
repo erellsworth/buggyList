@@ -9,9 +9,13 @@ import { ListPageRoutingModule } from './list-routing.module';
 import { ListPage } from './list.page';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 import { SharedModule } from '../../modules/shared/shared.module';
+import { ItemEditorComponent } from '../../components/item-editor/item-editor.component';
 
 @NgModule({
-    entryComponents: [ListEditorComponent],
+    entryComponents: [
+        ListEditorComponent,
+        ItemEditorComponent
+    ],
     imports: [
         SharedModule,
         CommonModule,
@@ -19,6 +23,10 @@ import { SharedModule } from '../../modules/shared/shared.module';
         IonicModule,
         ListPageRoutingModule
     ],
-    declarations: [ListPage, ListEditorComponent]
+    declarations: [
+        ListPage,
+        ListEditorComponent,
+        ItemEditorComponent
+    ]
 })
 export class ListPageModule { }

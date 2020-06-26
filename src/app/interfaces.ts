@@ -20,6 +20,7 @@ interface IHasColor extends IBaseData {
 export interface IList extends IHasColor {
     itemIds: string[];
     completedItemIds: string[];
+    defaultCategoryId?: string;
 }
 
 export interface ICategory extends IHasColor { }

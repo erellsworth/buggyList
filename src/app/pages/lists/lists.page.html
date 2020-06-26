@@ -2,7 +2,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-reorder-group id="reorder" disabled="false" (ionItemReorder)="itemsReordered($event)">
+        <ion-reorder-group disabled="false" (ionItemReorder)="itemsReordered($event)">
 
             <ion-item detail="true" *ngFor="let list of lists" [routerLink]="'/list/' + list.id">
                 <div class="color__wrapper" [style.border-color]="list.color">
