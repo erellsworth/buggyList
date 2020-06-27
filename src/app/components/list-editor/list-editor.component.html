@@ -27,7 +27,8 @@
                 </ion-item>
 
                 <ion-item>
-                    <app-category-selector (onSelect)="categorySelected($event)" placeholderText="Default Category">
+                    <app-category-selector (onSelect)="categorySelected($event)" placeholderText="Default Category"
+                        [selectedCategory]="defaultCategory">
                     </app-category-selector>
                 </ion-item>
 
