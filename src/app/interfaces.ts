@@ -21,6 +21,7 @@ export interface IList extends IHasColor {
     itemIds: string[];
     completedItemIds: string[];
     defaultCategoryId?: string;
+    showCompletedItems: boolean;
 }
 
 export interface ICategory extends IHasColor { }

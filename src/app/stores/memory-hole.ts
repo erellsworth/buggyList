@@ -23,7 +23,8 @@ export class MemoryHole {
             name: 'Groceries',
             color: '#cccccc',
             itemIds: [],
-            completedItemIds: []
+            completedItemIds: [],
+            showCompletedItems: true
         }
     ];
 

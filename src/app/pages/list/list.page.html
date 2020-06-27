@@ -53,9 +53,13 @@
 
 <ion-footer>
     <ion-toolbar>
+        <ion-item slot="start">
+            <ion-label>Show Completed Items</ion-label>
+            <ion-toggle [checked]="list.showCompletedItems" (ionChange)="toggleShowCompletedItems($event)"></ion-toggle>
+        </ion-item>
         <ion-buttons slot="end">
             <ion-button (click)="openEditor()">
-                <ion-icon slot="start" name="menu"></ion-icon>
+                <ion-icon slot="start" name="create-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

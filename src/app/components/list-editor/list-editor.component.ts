@@ -38,8 +38,10 @@ export class ListEditorComponent implements OnInit {
                 name: '',
                 id: v4(),
                 itemIds: [],
-                completedItemIds: []
+                completedItemIds: [],
+                showCompletedItems: true
             };
+
             this.isNewList = true;
             this.buttonText = 'Create';
             this.title = 'Create New List';

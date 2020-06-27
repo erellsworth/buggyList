@@ -47,6 +47,8 @@ export class UtilitiesService {
     }
 
     public findById(key: 'lists' | 'categories' | 'items', id: string): IBaseData {
+        if (!this.data[key]) { return; }
+
         return this.data[key].find((item: IListItem) => {
             return item.id === id;
         });

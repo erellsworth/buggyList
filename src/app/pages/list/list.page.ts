@@ -62,8 +62,14 @@ export class ListPage implements OnInit {
 
     public items(): IListItem[] {
         if (!this.list || !this.list.itemIds) { return []; }
-        return this.list.itemIds.map((id: string) => {
+
+        return this.list.itemIds.map((id: string): IListItem => {
             return this.util.findItem(id);
+        }).filter((item: IListItem): boolean => {
+            if (this.list.showCompletedItems) {
+                return true;
+            }
+            return !this.isComplete(item);
         });
     }
 
@@ -112,6 +118,14 @@ export class ListPage implements OnInit {
         });
 
         return await modal.present();
+    }
+
+    /**
+     * toggleShowCompletedItems
+     */
+    public toggleShowCompletedItems(event: CustomEvent) {
+        this.list.showCompletedItems = event.detail.checked;
+        this.store.updateSingle('lists', this.list);
     }
 
     /**
