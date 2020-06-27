@@ -49,18 +49,37 @@
             </ion-item-sliding>
         </ion-reorder-group>
     </ion-list>
-</ion-content>
 
-<ion-footer>
-    <ion-toolbar>
-        <ion-item slot="start">
-            <ion-label>Show Completed Items</ion-label>
-            <ion-toggle [checked]="list.showCompletedItems" (ionChange)="toggleShowCompletedItems($event)"></ion-toggle>
-        </ion-item>
-        <ion-buttons slot="end">
-            <ion-button (click)="openEditor()">
-                <ion-icon slot="start" name="create-outline"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-footer>
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+        <ion-fab-button color="dark" size="small">
+            <ion-icon name="options"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-item>
+                <ion-label>Show Completed Items</ion-label>
+                <ion-toggle [checked]="list.showCompletedItems" (ionChange)="toggleShowCompletedItems($event)">
+                </ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label>Remove Completed Items</ion-label>
+                <ion-button>
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            <ion-item>
+                <ion-label>Remove All Items</ion-label>
+                <ion-button>
+
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+        </ion-fab-list>
+    </ion-fab>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openEditor()" size="small">
+            <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
