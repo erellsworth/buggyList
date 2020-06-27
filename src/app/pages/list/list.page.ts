@@ -177,19 +177,52 @@ export class ListPage implements OnInit {
         this.store.updateSingle('lists', this.list);
     }
 
-    public removeAllItems() {
-        this.list.completedItemIds = [];
-        this.list.itemIds = [];
-        this.store.updateSingle('lists', this.list);
-    }
-
-    public removeCompletedItems() {
-        this.list.itemIds = this.list.itemIds.filter((id: string): boolean => {
-            return !this.list.completedItemIds.includes(id);
+    public async removeAllItems() {
+        const alert = await this.alert.create({
+            header: 'Remove all items?',
+            message: 'Are you super serious?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel'
+                }, {
+                    text: 'Yes, delete that shit!',
+                    handler: () => {
+                        this.list.completedItemIds = [];
+                        this.list.itemIds = [];
+                        this.store.updateSingle('lists', this.list);
+                    }
+                }
+            ]
         });
 
-        this.list.completedItemIds = [];
+        await alert.present();
+    }
 
-        this.store.updateSingle('lists', this.list);
+    public async removeCompletedItems() {
+
+        const alert = await this.alert.create({
+            header: 'Remove All Completed Items?',
+            message: 'Are you super serious?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel'
+                }, {
+                    text: 'Yes, delete that shit!',
+                    handler: () => {
+                        this.list.itemIds = this.list.itemIds.filter((id: string): boolean => {
+                            return !this.list.completedItemIds.includes(id);
+                        });
+
+                        this.list.completedItemIds = [];
+
+                        this.store.updateSingle('lists', this.list);
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
     }
 }
