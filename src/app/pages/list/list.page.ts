@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 import { IAppData, IList, IListItem } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 import { ItemEditorComponent } from '../../components/item-editor/item-editor.component';
 
@@ -15,6 +15,8 @@ import { ItemEditorComponent } from '../../components/item-editor/item-editor.co
 })
 export class ListPage implements OnInit {
 
+    private listBackup: IList;
+
     public list: IList;
     public pendingItem: IListItem = {
         name: '',
@@ -22,12 +24,14 @@ export class ListPage implements OnInit {
     };
     public suggestedItems: IListItem[];
 
+
     constructor(
         private alert: AlertController,
         private route: ActivatedRoute,
         private store: MemoryHole,
         private util: UtilitiesService,
-        private modal: ModalController
+        private modal: ModalController,
+        private toast: ToastController
     ) {
         let id: string = '';
 
@@ -188,9 +192,11 @@ export class ListPage implements OnInit {
                 }, {
                     text: 'Yes, delete that shit!',
                     handler: () => {
+                        this.listBackup = Object.assign({}, this.list);
                         this.list.completedItemIds = [];
                         this.list.itemIds = [];
                         this.store.updateSingle('lists', this.list);
+                        this.showDeletedToast();
                     }
                 }
             ]
@@ -211,6 +217,7 @@ export class ListPage implements OnInit {
                 }, {
                     text: 'Yes, delete that shit!',
                     handler: () => {
+                        this.listBackup = Object.assign({}, this.list);
                         this.list.itemIds = this.list.itemIds.filter((id: string): boolean => {
                             return !this.list.completedItemIds.includes(id);
                         });
@@ -218,11 +225,36 @@ export class ListPage implements OnInit {
                         this.list.completedItemIds = [];
 
                         this.store.updateSingle('lists', this.list);
+                        this.showDeletedToast();
                     }
                 }
             ]
         });
 
         await alert.present();
+    }
+
+    private async showDeletedToast() {
+        const toast = await this.toast.create({
+            header: 'Items Removed',
+            position: 'middle',
+            duration: 3000,
+            buttons: [
+                {
+                    side: 'end',
+                    icon: 'arrow-undo',
+                    text: 'Undo',
+                    handler: () => {
+                        this.list = Object.assign({}, this.listBackup);
+                        this.store.updateSingle('lists', this.list);
+                    }
+                },
+                {
+                    text: 'Good riddance',
+                    role: 'cancel'
+                }
+            ]
+        });
+        toast.present()
     }
 }
