@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MemoryHole } from './stores/memory-hole';
-import { IAppData, IListItem, IList } from './interfaces';
+import { IAppData, IListItem, IList, IBaseData } from './interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -44,6 +44,12 @@ export class UtilitiesService {
         if (obj.length === 0) { return false; }
 
         return obj;
+    }
+
+    public findById(key: 'lists' | 'categories' | 'items', id: string): IBaseData {
+        return this.data[key].find((item: IListItem) => {
+            return item.id === id;
+        });
     }
 
     public findItem(id: string): IListItem {
