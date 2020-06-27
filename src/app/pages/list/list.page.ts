@@ -56,7 +56,7 @@ export class ListPage implements OnInit {
         return false;
     }
 
-    private isComplete(item: IListItem): boolean {
+    private isItemComplete(item: IListItem): boolean {
         return this.list.completedItemIds.includes(item.id);
     }
 
@@ -69,7 +69,7 @@ export class ListPage implements OnInit {
             if (this.list.showCompletedItems) {
                 return true;
             }
-            return !this.isComplete(item);
+            return !this.isItemComplete(item);
         });
     }
 
@@ -148,7 +148,7 @@ export class ListPage implements OnInit {
      * toggleItem
      */
     public toggleItem(item: IListItem): void {
-        if (this.isComplete(item)) {
+        if (this.isItemComplete(item)) {
             this.list.completedItemIds = this.list.completedItemIds.filter((id: string): boolean => {
                 return id !== item.id;
             });
@@ -163,7 +163,7 @@ export class ListPage implements OnInit {
      * getCheckboxIcon
      */
     public getCheckboxIcon(item: IListItem): string {
-        if (this.isComplete(item)) { return 'checkbox'; }
+        if (this.isItemComplete(item)) { return 'checkbox'; }
 
         return 'checkbox-outline';
     }
@@ -173,6 +173,22 @@ export class ListPage implements OnInit {
      */
     public itemsReordered(event: any) {
         this.list.itemIds = event.detail.complete(this.list.itemIds);
+
+        this.store.updateSingle('lists', this.list);
+    }
+
+    public removeAllItems() {
+        this.list.completedItemIds = [];
+        this.list.itemIds = [];
+        this.store.updateSingle('lists', this.list);
+    }
+
+    public removeCompletedItems() {
+        this.list.itemIds = this.list.itemIds.filter((id: string): boolean => {
+            return !this.list.completedItemIds.includes(id);
+        });
+
+        this.list.completedItemIds = [];
 
         this.store.updateSingle('lists', this.list);
     }
