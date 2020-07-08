@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-// import { ListMakerComponent } from '../../components/list-maker/list-maker.component';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 import { IList, IAppData } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
@@ -26,7 +25,7 @@ export class ListsPage implements OnInit {
     ngOnInit() { }
 
     public async addList(): Promise<void> {
-        console.log('add list');
+
         const modal = await this.modal.create({
             component: ListEditorComponent
         });

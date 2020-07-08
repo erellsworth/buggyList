@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { v4 } from 'uuid';
 import { IAppData, IList, IListItem } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
@@ -18,10 +17,7 @@ export class ListPage implements OnInit {
     private listBackup: IList;
 
     public list: IList;
-    public pendingItem: IListItem = {
-        name: '',
-        id: v4()
-    };
+    public pendingItem: IListItem;
     public suggestedItems: IListItem[];
 
 
@@ -37,6 +33,11 @@ export class ListPage implements OnInit {
 
         if (this.route.snapshot.paramMap) {
             id = this.route.snapshot.paramMap.get('id');
+        }
+
+        this.pendingItem = {
+            name: '',
+            id: this.store.createId()
         }
 
         this.store.data.subscribe((data: IAppData) => {
@@ -106,7 +107,7 @@ export class ListPage implements OnInit {
 
         this.pendingItem = {
             name: '',
-            id: v4()
+            id: this.store.createId()
         }
     }
 

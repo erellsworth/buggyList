@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IAppData, ICategory } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
-import { v4 } from 'uuid';
 
 @Component({
     selector: 'app-category-selector',
@@ -15,20 +14,22 @@ export class CategorySelectorComponent implements OnInit {
 
     @Output() onSelect: EventEmitter<ICategory> = new EventEmitter();
 
-    public pendingCategory: ICategory = {
-        id: v4(),
-        name: ''
-    };
+    public pendingCategory: ICategory;
+
     private existingCategories: ICategory[];
 
     constructor(private store: MemoryHole) {
         this.store.data.subscribe((data: IAppData) => {
             this.existingCategories = data.categories;
-            console.log('data', data);
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.pendingCategory = {
+            id: this.store.createId(),
+            name: ''
+        }
+     }
 
     /**
      * inputChanged

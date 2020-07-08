@@ -4,7 +4,7 @@
     <ion-list>
         <ion-reorder-group disabled="false" (ionItemReorder)="itemsReordered($event)">
 
-            <ion-item detail="true" *ngFor="let list of lists" [routerLink]="'/list/' + list.id">
+            <ion-item detail="true" *ngFor="let list of lists" [routerLink]="list.id">
                 <div class="color__wrapper" [style.border-color]="list.color">
                     <ion-reorder>
                         <ion-label class="list__label">{{list.name}}</ion-label>

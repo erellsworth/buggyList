@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { IList, ICategory, IAppData } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
-import { v4 } from 'uuid';
 import { UtilitiesService } from '../../utilities.service';
 
 @Component({
@@ -36,7 +35,7 @@ export class ListEditorComponent implements OnInit {
         if (!this.list) {
             this.list = {
                 name: '',
-                id: v4(),
+                id: this.store.createId(),
                 itemIds: [],
                 completedItemIds: [],
                 showCompletedItems: true
@@ -90,6 +89,7 @@ export class ListEditorComponent implements OnInit {
     }
 
     public async create(): Promise<void> {
+
         if (this.checkForDuplicate()) {
             const alert = await this.alert.create({
                 header: 'Duplicate List',

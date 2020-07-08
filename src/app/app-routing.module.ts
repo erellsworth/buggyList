@@ -33,7 +33,7 @@ const routes: Routes = [
                 loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesPageModule)
             },
             {
-                path: 'list/:id',
+                path: 'lists/:id',
                 loadChildren: () => import('./pages/list/list.module').then(m => m.ListPageModule)
             },
         ]

@@ -35,3 +35,5 @@ export interface IAppData {
     categories: ICategory[];
     items: IListItem[];
 }
+
+export type dataKey = 'lists' | 'items' | 'categories';
