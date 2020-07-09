@@ -2,7 +2,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item detail="true" *ngFor="let category of categories" [routerLink]="'/category/' + category.id">
+        <ion-item detail="true" *ngFor="let category of categories" [routerLink]="category.id">
             <div class="color__wrapper" [style.border-color]="category.color">
                 <ion-label class="list__label">{{category.name}}</ion-label>
                 <div class="color-block" [style.background]="category.color"></div>

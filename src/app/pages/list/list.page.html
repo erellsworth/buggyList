@@ -38,7 +38,7 @@
                     </ion-button>
                 </ion-item-options>
                 <ion-item>
-                    <ion-reorder>
+                    <ion-reorder *ngIf="item">
                         <ion-label>{{item.name}}</ion-label>
                     </ion-reorder>
 

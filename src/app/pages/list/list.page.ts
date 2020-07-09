@@ -45,6 +45,7 @@ export class ListPage implements OnInit {
                 return list.id === id;
             });
             this.list = this.util.normalizeList(list);
+            this.pendingItem.categoryIds = [this.list.defaultCategoryId];
         });
     }
 
@@ -62,6 +63,7 @@ export class ListPage implements OnInit {
     }
 
     private isItemComplete(item: IListItem): boolean {
+        console.log('isItemComplete', item);
         return this.list.completedItemIds.includes(item.id);
     }
 
@@ -71,6 +73,7 @@ export class ListPage implements OnInit {
         return this.list.itemIds.map((id: string): IListItem => {
             return this.util.findItem(id);
         }).filter((item: IListItem): boolean => {
+            if (!item) { return false; }
             if (this.list.showCompletedItems) {
                 return true;
             }

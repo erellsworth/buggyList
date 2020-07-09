@@ -37,6 +37,10 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'categories/:id',
+                loadChildren: () => import('../pages/category/category.module').then(m => m.CategoryPageModule)
+            },
+            {
                 path: '',
                 redirectTo: '/tabs/lists',
                 pathMatch: 'full'
