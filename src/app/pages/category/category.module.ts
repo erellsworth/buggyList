@@ -9,8 +9,12 @@ import { SharedModule } from '../../modules/shared/shared.module';
 import { CategoryPageRoutingModule } from './category-routing.module';
 
 import { CategoryPage } from './category.page';
+import { CategoryEditorComponent } from '../../components/category-editor/category-editor.component';
 
 @NgModule({
+    entryComponents: [
+        CategoryEditorComponent
+    ],
     imports: [
         SharedModule,
         CommonModule,
@@ -18,6 +22,9 @@ import { CategoryPage } from './category.page';
         IonicModule,
         CategoryPageRoutingModule
     ],
-    declarations: [CategoryPage]
+    declarations: [
+        CategoryPage,
+        CategoryEditorComponent
+    ]
 })
 export class CategoryPageModule { }

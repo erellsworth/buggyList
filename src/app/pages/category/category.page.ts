@@ -4,6 +4,7 @@ import { MemoryHole } from '../../stores/memory-hole';
 import { ActivatedRoute } from '@angular/router';
 import { ItemEditorComponent } from '../../components/item-editor/item-editor.component';
 import { ModalController } from '@ionic/angular';
+import { CategoryEditorComponent } from '../../components/category-editor/category-editor.component';
 
 @Component({
     selector: 'app-category',
@@ -42,6 +43,20 @@ export class CategoryPage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    /**
+         * openEditor
+         */
+    public async openEditor(): Promise<void> {
+        const modal = await this.modal.create({
+            component: CategoryEditorComponent,
+            componentProps: {
+                category: this.category
+            }
+        });
+
+        return await modal.present();
     }
 
 }
