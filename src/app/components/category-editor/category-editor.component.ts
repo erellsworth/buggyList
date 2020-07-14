@@ -15,9 +15,7 @@ export class CategoryEditorComponent implements OnInit {
     constructor(
         private store: MemoryHole,
         private modal: ModalController,
-    ) {
-
-    }
+    ) { }
 
     ngOnInit() { }
 

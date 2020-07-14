@@ -17,13 +17,10 @@
                 </ion-button>
             </ion-item-options>
             <ion-item>
-
                 <ion-label>{{item.name}}</ion-label>
-
-
                 <ion-icon slot="end" size="small">
                 </ion-icon>
-                <app-color-marker slot="end" [color]="category.color"></app-color-marker>
+                <app-color-marker slot="end" [color]="category.color" [item]="item"></app-color-marker>
             </ion-item>
         </ion-item>
     </ion-list>

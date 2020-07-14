@@ -44,7 +44,7 @@
 
                     <ion-icon [name]="getCheckboxIcon(item)" slot="end" size="small" (click)="toggleItem(item)">
                     </ion-icon>
-                    <app-color-marker slot="end" [color]="list.color"></app-color-marker>
+                    <app-color-marker slot="end" [color]="list.color" [item]="item"></app-color-marker>
                 </ion-item>
             </ion-item-sliding>
         </ion-reorder-group>

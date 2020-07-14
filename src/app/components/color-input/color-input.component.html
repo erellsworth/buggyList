@@ -1,4 +1,4 @@
 <div class="color-input__wrapper">
     <input class="color-input" [(colorPicker)]="color" [style.background]="color" [cpOKButton]="true"
-        (colorPickerChange)="colorSelected($event);color=$event" />
+        [cpPositionRelativeToArrow]="true" (colorPickerChange)="colorSelected($event);color=$event" />
 </div>

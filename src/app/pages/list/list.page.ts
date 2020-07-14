@@ -63,7 +63,6 @@ export class ListPage implements OnInit {
     }
 
     private isItemComplete(item: IListItem): boolean {
-        console.log('isItemComplete', item);
         return this.list.completedItemIds.includes(item.id);
     }
 

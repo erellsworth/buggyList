@@ -20,6 +20,10 @@
                         [value]="category.name" (ionChange)="nameChanged($event)">
                     </ion-input>
                 </ion-item>
+                <ion-item>
+                    <ion-label position="stacked">Category Color</ion-label>
+                    <app-color-input (onUpdate)="colorChanged($event)" [color]="category.color"></app-color-input>
+                </ion-item>
             </ion-item-group>
             <ion-button [disabled]="!category.name" color="secondary" (click)="update()">Update</ion-button>
 
