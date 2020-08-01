@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IAppData, IList, IListItem } from '../../interfaces';
+import { IAppData, IList, IListItem, ICategory } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 import { ItemEditorComponent } from '../../components/item-editor/item-editor.component';
+
+interface ICategoryListItem {
+    name: string;
+    items: IListItem[];
+    itemNames: string[];
+}
 
 @Component({
     selector: 'app-list',
@@ -19,7 +25,6 @@ export class ListPage implements OnInit {
     public list: IList;
     public pendingItem: IListItem;
     public suggestedItems: IListItem[];
-
 
     constructor(
         private alert: AlertController,
@@ -64,6 +69,33 @@ export class ListPage implements OnInit {
 
     private isItemComplete(item: IListItem): boolean {
         return this.list.completedItemIds.includes(item.id);
+    }
+
+    public categories(): ICategoryListItem[] {
+        let cats: ICategoryListItem[] = [];
+
+        this.items().forEach((item: IListItem) => {
+            if (!item.categoryIds) { return; }
+            item.categoryIds.forEach((categoryId: string) => {
+                const category: ICategory = this.util.findById('categories', categoryId);
+                const categoryItem = cats.find((categoryItem: ICategoryListItem) => {
+                    return categoryItem.name === category.name;
+                });
+
+                if (!categoryItem) {
+                    cats.push({
+                        name: category.name,
+                        items: [item],
+                        itemNames: [item.name]
+                    });
+                } else {
+                    categoryItem.items.push(item);
+                    categoryItem.itemNames.push(item.name);
+                }
+            });
+        });
+
+        return cats;
     }
 
     public items(): IListItem[] {
