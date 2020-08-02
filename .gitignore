@@ -32,3 +32,4 @@ npm-debug.log*
 /android
 
 firebase.config.ts
+package-lock.json
