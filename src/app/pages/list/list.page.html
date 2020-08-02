@@ -1,6 +1,7 @@
 <ion-header *ngIf="list">
     <ion-toolbar [style.border-color]="list.color" class="color__border">
         <ion-title slot="start">{{list.name}}</ion-title>
+
         <ion-buttons slot="end">
             <ion-back-button defaultHref="tabs/lists" icon="close">
             </ion-back-button>
@@ -30,7 +31,7 @@
             <!-- Spacer -->
         </ion-item>
 
-        <ion-reorder-group disabled="false" (ionItemReorder)="itemsReordered($event)">
+        <ion-reorder-group [disabled]="!sortingEnabled" (ionItemReorder)="itemsReordered($event)">
             <ion-item-sliding *ngFor="let item of items()">
                 <ion-item-options side="start">
                     <ion-button expand="full" (click)="editItem(item)">
@@ -55,6 +56,11 @@
             <ion-icon name="options"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
+            <ion-item>
+                <ion-label>Enabled Sorting</ion-label>
+                <ion-toggle [checked]="sortingEnabled" (ionChange)="toggleSorting()">
+                </ion-toggle>
+            </ion-item>
             <ion-item>
                 <ion-label>Show Completed Items</ion-label>
                 <ion-toggle [checked]="list.showCompletedItems" (ionChange)="toggleShowCompletedItems($event)">

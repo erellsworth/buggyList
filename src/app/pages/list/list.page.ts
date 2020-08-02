@@ -19,6 +19,7 @@ export class ListPage implements OnInit {
     public list: IList;
     public pendingItem: IListItem;
     public suggestedItems: IListItem[];
+    public sortingEnabled: boolean = false;
 
 
     constructor(
@@ -133,6 +134,13 @@ export class ListPage implements OnInit {
     public toggleShowCompletedItems(event: CustomEvent) {
         this.list.showCompletedItems = event.detail.checked;
         this.store.updateSingle('lists', this.list);
+    }
+
+    /**
+     * toggleSorting
+     */
+    public toggleSorting() {
+        this.sortingEnabled = !this.sortingEnabled;
     }
 
     /**
