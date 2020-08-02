@@ -10,7 +10,6 @@ import { ItemEditorComponent } from '../../components/item-editor/item-editor.co
 interface ICategoryListItem {
     name: string;
     items: IListItem[];
-    itemNames: string[];
 }
 
 @Component({
@@ -85,12 +84,10 @@ export class ListPage implements OnInit {
                 if (!categoryItem) {
                     cats.push({
                         name: category.name,
-                        items: [item],
-                        itemNames: [item.name]
+                        items: [item]
                     });
                 } else {
                     categoryItem.items.push(item);
-                    categoryItem.itemNames.push(item.name);
                 }
             });
         });
@@ -211,9 +208,10 @@ export class ListPage implements OnInit {
      * itemsReordered
      */
     public itemsReordered(event: any) {
-        this.list.itemIds = event.detail.complete(this.list.itemIds);
-
-        this.store.updateSingle('lists', this.list);
+        // this.list.itemIds = event.detail.complete(this.list.itemIds);
+        console.log(event);
+        console.log(event.detail.complete(this.categories()));
+        // this.store.updateSingle('lists', this.list);
     }
 
     public async removeAllItems() {
