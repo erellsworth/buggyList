@@ -47,7 +47,6 @@ export class ListPage implements OnInit {
                 return list.id === id;
             });
             this.list = this.util.normalizeList(list);
-            this.pendingItem.categoryIds = [this.list.defaultCategoryId];
         });
     }
 

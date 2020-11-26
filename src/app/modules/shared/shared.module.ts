@@ -5,7 +5,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ColorInputComponent } from '../../components/color-input/color-input.component';
 import { ColorMarkerComponent } from '../../components/color-marker/color-marker.component';
-import { CategorySelectorComponent } from '../../components/category-selector/category-selector.component';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 
 
@@ -14,7 +13,6 @@ import { ListEditorComponent } from '../../components/list-editor/list-editor.co
         HeaderComponent,
         ColorInputComponent,
         ColorMarkerComponent,
-        CategorySelectorComponent,
         ListEditorComponent
     ],
     imports: [
@@ -27,7 +25,6 @@ import { ListEditorComponent } from '../../components/list-editor/list-editor.co
         ColorInputComponent,
         ColorPickerModule,
         ColorMarkerComponent,
-        CategorySelectorComponent,
         ListEditorComponent
     ]
 })

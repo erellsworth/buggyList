@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IAppData, ICategory, IList, IBaseData, IListItem, dataKey } from '../interfaces';
+import { IAppData, IList, IBaseData, IListItem, dataKey } from '../interfaces';
 import "firebase/database";
 
 
@@ -22,13 +22,11 @@ export class MemoryHole {
 
     private _data: IAppData = {
         lists: [],
-        categories: [],
         items: []
     };
 
     private collections: {
         items: AngularFirestoreCollection<IListItem>;
-        categories: AngularFirestoreCollection<ICategory>;
         lists: AngularFirestoreCollection<IList>;
     };
 
@@ -41,17 +39,11 @@ export class MemoryHole {
 
         this.collections = {
             items: fireStore.collection<IListItem>('items'),
-            categories: fireStore.collection<ICategory>('categories'),
             lists: fireStore.collection<IList>('lists'),
         };
 
         this.collections.items.valueChanges().subscribe((items) => {
             this._data.items = items;
-            this.observer.next(this._data);
-        });
-
-        this.collections.categories.valueChanges().subscribe((categories) => {
-            this._data.categories = categories;
             this.observer.next(this._data);
         });
 

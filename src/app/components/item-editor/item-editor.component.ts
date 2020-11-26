@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IListItem, IList } from '../../interfaces';
+import { IListItem } from '../../interfaces';
 import { ModalController } from '@ionic/angular';
 import { MemoryHole } from '../../stores/memory-hole';
 

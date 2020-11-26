@@ -26,12 +26,6 @@
                     <app-color-input (onUpdate)="colorChanged($event)" [color]="list.color"></app-color-input>
                 </ion-item>
 
-                <ion-item>
-                    <app-category-selector (onSelect)="categorySelected($event)" placeholderText="Default Category"
-                        [selectedCategory]="defaultCategory">
-                    </app-category-selector>
-                </ion-item>
-
             </ion-item-group>
 
             <ion-button [disabled]="!list.name" color="secondary" (click)="save()">{{buttonText}}</ion-button>

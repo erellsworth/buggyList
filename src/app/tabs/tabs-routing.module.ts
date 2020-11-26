@@ -27,20 +27,6 @@ const routes: Routes = [
                 loadChildren: () => import('../pages/list/list.module').then(m => m.ListPageModule)
             },
             {
-                path: 'categories',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: () =>
-                            import('../pages/categories/categories.module').then(m => m.CategoriesPageModule)
-                    }
-                ]
-            },
-            {
-                path: 'categories/:id',
-                loadChildren: () => import('../pages/category/category.module').then(m => m.CategoryPageModule)
-            },
-            {
                 path: '',
                 redirectTo: '/tabs/lists',
                 pathMatch: 'full'

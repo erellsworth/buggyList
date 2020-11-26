@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
-import { IList, ICategory, IAppData } from '../../interfaces';
+import { IList, IAppData } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
 
@@ -18,7 +18,6 @@ export class ListEditorComponent implements OnInit {
 
     public buttonText: string = "save";
     public title: string = 'Edit';
-    public defaultCategory: ICategory;
 
     constructor(
         private alert: AlertController,
@@ -47,7 +46,6 @@ export class ListEditorComponent implements OnInit {
         } else {
             this.isNewList = false;
             this.title += ' ' + this.list.name;
-            this.defaultCategory = this.helper.findById('categories', this.list.defaultCategoryId);
         }
     }
 
@@ -104,10 +102,5 @@ export class ListEditorComponent implements OnInit {
 
         await this.store.add('lists', this.list);
         await this.close();
-    }
-
-    public categorySelected(category: ICategory) {
-        this.list.defaultCategoryId = category.id;
-        this.defaultCategory = category;
     }
 }
