@@ -18,6 +18,7 @@ export class ListPage implements OnInit {
 
     public list: IList;
     public pendingItem: IListItem;
+    public pendingQuantity: number = 1;
     public suggestedItems: IListItem[];
     public sortingEnabled: boolean = false;
 
@@ -56,6 +57,7 @@ export class ListPage implements OnInit {
 
         let existingItemId: string = this.list.itemIds.find((itemId: string): boolean => {
             let item = this.util.findItem(itemId);
+            if (!item) { return false; }
             return item.name.toLowerCase() === this.pendingItem.name.toLowerCase();
         });
 
@@ -71,7 +73,13 @@ export class ListPage implements OnInit {
         if (!this.list || !this.list.itemIds) { return []; }
 
         return this.list.itemIds.map((id: string): IListItem => {
-            return this.util.findItem(id);
+            const item: IListItem = this.util.findItem(id);
+
+            if (item) {
+                item.quantity = this.list.quantities[item.id] || 1;
+            }
+
+            return item;
         }).filter((item: IListItem): boolean => {
             if (!item) { return false; }
             if (this.list.showCompletedItems) {
@@ -106,12 +114,18 @@ export class ListPage implements OnInit {
 
         this.list.itemIds.push(item.id);
 
+        if (!this.list.quantities) { this.list.quantities = {}; }
+
+        this.list.quantities[item.id] = this.pendingQuantity;
+
         this.store.updateSingle('lists', this.list);
 
         this.pendingItem = {
             name: '',
             id: this.store.createId()
         }
+
+        this.pendingQuantity = 1;
     }
 
     /**

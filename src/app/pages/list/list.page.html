@@ -12,11 +12,26 @@
 <ion-content>
     <ion-list>
         <ion-item>
-            <ion-label position="floating">Add Item</ion-label>
+            <ion-label position="floating">Add Item:</ion-label>
             <form (submit)="addItem()">
-                <ion-input autofocus="true" color="primary" clear-input="true" spellcheck="true"
-                    (ionChange)="itemChanged($event)" [value]="pendingItem.name">
-                </ion-input>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="9">
+                            <ion-label position="floating">Item</ion-label>
+                            <ion-input autofocus="true" color="primary" clear-input="true" spellcheck="true"
+                                (ionChange)="itemChanged($event)" [value]="pendingItem.name"></ion-input>
+                        </ion-col>
+
+                        <ion-col size="3">
+                            <ion-label position="floating">Quantity</ion-label>
+                            <ion-input type="number" color="primary" clear-input="true" name="pendingQuantity"
+                                [(ngModel)]="pendingQuantity">
+                            </ion-input>
+                        </ion-col>
+
+                    </ion-row>
+
+                </ion-grid>
             </form>
             <ion-icon *ngIf="pendingItem.name" name="add-circle-outline" slot="end" size="large" (click)="addItem()">
             </ion-icon>
@@ -39,11 +54,13 @@
                     </ion-button>
                 </ion-item-options>
                 <ion-item>
+                    <ion-badge slot="start">{{item.quantity}}</ion-badge>
+
                     <ion-reorder *ngIf="item">
                         <ion-label>{{item.name}}</ion-label>
                     </ion-reorder>
 
-                    <ion-icon [name]="getCheckboxIcon(item)" slot="end" size="small" (click)="toggleItem(item)">
+                    <ion-icon [name]="getCheckboxIcon(item)" slot="end" size="large" (click)="toggleItem(item)">
                     </ion-icon>
                     <app-color-marker slot="end" [color]="list.color" [item]="item"></app-color-marker>
                 </ion-item>

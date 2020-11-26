@@ -22,12 +22,14 @@ export interface IList extends IHasColor {
     completedItemIds: string[];
     defaultCategoryId?: string;
     showCompletedItems: boolean;
+    quantities?: { [key: string]: number };
 }
 
 export interface ICategory extends IHasColor { }
 
 export interface IListItem extends IHasColor {
     categoryIds?: string[];
+    quantity?: number;
 }
 
 export interface IAppData {
