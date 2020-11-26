@@ -20,6 +20,14 @@
                         (ionChange)="nameChanged($event)">
                     </ion-input>
                 </ion-item>
+
+                <ion-item *ngIf="list">
+                    <ion-label position="floating">Quantity</ion-label>
+                    <ion-input type="number" color="primary" clear-input="true" name="pendingQuantity"
+                        [(ngModel)]="quantity">
+                    </ion-input>
+                </ion-item>
+
                 <ion-item>
                     <ion-label position="stacked">Item Color</ion-label>
                     <app-color-input (onUpdate)="colorChanged($event)" [color]="item.color"></app-color-input>

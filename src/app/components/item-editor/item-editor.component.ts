@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IListItem } from '../../interfaces';
+import { IList, IListItem } from '../../interfaces';
 import { ModalController } from '@ionic/angular';
 import { MemoryHole } from '../../stores/memory-hole';
 
@@ -11,13 +11,22 @@ import { MemoryHole } from '../../stores/memory-hole';
 export class ItemEditorComponent implements OnInit {
 
     @Input() item?: IListItem;
+    @Input() list?: IList;
+
+    public quantity: number = 1;
 
     constructor(
         private modal: ModalController,
         private store: MemoryHole
     ) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        if (this.list) {
+            if (!this.list.quantities) { this.list.quantities = {}; }
+
+            this.quantity = this.list.quantities[this.item.id] || 1;
+        }
+    }
 
     public async close(): Promise<void> {
         await this.modal.dismiss();
@@ -36,6 +45,8 @@ export class ItemEditorComponent implements OnInit {
 
     public async update() {
         await this.store.updateSingle('items', this.item);
+        this.list.quantities[this.item.id] = this.quantity;
+        await this.store.updateSingle('lists', this.list);
         await this.close();
     }
 
