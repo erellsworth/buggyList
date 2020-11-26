@@ -74,6 +74,12 @@
         </ion-fab-button>
         <ion-fab-list side="top">
             <ion-item>
+                <ion-label>Delete List</ion-label>
+                <ion-button color="danger" (click)="deleteList()">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
+            <ion-item>
                 <ion-label>Enabled Sorting</ion-label>
                 <ion-toggle [checked]="sortingEnabled" (ionChange)="toggleSorting()">
                 </ion-toggle>

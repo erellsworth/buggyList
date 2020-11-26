@@ -67,8 +67,8 @@ export class MemoryHole {
         this.collections[key].doc(item.id).set(item);
     }
 
-    public async delete(key: string, id: string): Promise<void> {
-
+    public async delete(key: dataKey, id: string): Promise<void> {
+        await this.collections[key].doc(id).delete();
     }
 
     public async updateSingle(key: dataKey, updatedItem: IBaseData): Promise<void> {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IAppData, IList, IListItem } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
 import { UtilitiesService } from '../../utilities.service';
@@ -26,6 +26,7 @@ export class ListPage implements OnInit {
     constructor(
         private alert: AlertController,
         private route: ActivatedRoute,
+        private router: Router,
         private store: MemoryHole,
         private util: UtilitiesService,
         private modal: ModalController,
@@ -75,6 +76,8 @@ export class ListPage implements OnInit {
             const item: IListItem = this.util.findItem(id);
 
             if (item) {
+                if (!this.list.quantities) { this.list.quantities = {}; }
+
                 item.quantity = this.list.quantities[item.id] || 1;
             }
 
@@ -250,6 +253,27 @@ export class ListPage implements OnInit {
 
                         this.store.updateSingle('lists', this.list);
                         this.showDeletedToast();
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+    public async deleteList() {
+        const alert = await this.alert.create({
+            header: 'Delete this list?',
+            message: 'Are you super serious? (this cannot be undone)',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel'
+                }, {
+                    text: 'Yes, delete that shit!',
+                    handler: () => {
+                        this.store.delete('lists', this.list.id);
+                        this.router.navigate(['/']);
                     }
                 }
             ]
