@@ -33,3 +33,4 @@ npm-debug.log*
 
 firebase.config.ts
 package-lock.json
+.firebase
