@@ -4,7 +4,6 @@ import { redirectLoggedInTo } from '@angular/fire/auth-guard';
 
 const redirectLoggedIn = () => redirectLoggedInTo(['']);
 
-
 const routes: Routes = [
     {
         path: '',
@@ -14,7 +13,7 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
         data: { authGuardPipe: redirectLoggedIn },
-    }
+    },
 ];
 @NgModule({
     imports: [

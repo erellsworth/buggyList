@@ -14,6 +14,7 @@ export class ItemEditorComponent implements OnInit {
     @Input() list?: IList;
 
     public quantity: number = 1;
+    public notes: string;
 
     constructor(
         private modal: ModalController,
@@ -23,8 +24,10 @@ export class ItemEditorComponent implements OnInit {
     ngOnInit() {
         if (this.list) {
             if (!this.list.quantities) { this.list.quantities = {}; }
+            if (!this.list.notes) { this.list.notes = {}; }
 
             this.quantity = this.list.quantities[this.item.id] || 1;
+            this.notes = this.list.notes[this.item.id];
         }
     }
 
@@ -46,6 +49,7 @@ export class ItemEditorComponent implements OnInit {
     public async update() {
         await this.store.updateSingle('items', this.item);
         this.list.quantities[this.item.id] = this.quantity;
+        this.list.notes[this.item.id] = this.notes;
         await this.store.updateSingle('lists', this.list);
         await this.close();
     }

@@ -29,6 +29,11 @@
                 </ion-item>
 
                 <ion-item>
+                    <ion-label position="floating">Notes</ion-label>
+                    <ion-textarea [(ngModel)]="notes"></ion-textarea>
+                </ion-item>
+
+                <ion-item>
                     <ion-label position="stacked">Item Color</ion-label>
                     <app-color-input (onUpdate)="colorChanged($event)" [color]="item.color"></app-color-input>
                 </ion-item>

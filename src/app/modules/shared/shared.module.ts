@@ -6,14 +6,16 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { ColorInputComponent } from '../../components/color-input/color-input.component';
 import { ColorMarkerComponent } from '../../components/color-marker/color-marker.component';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
-
-
+import { CurrentTempComponent } from '../../components/weather/current-temp/current-temp.component';
+import { WeatherBlockComponent } from '../../components/weather/weather-block/weather-block.component';
 @NgModule({
     declarations: [
         HeaderComponent,
         ColorInputComponent,
         ColorMarkerComponent,
-        ListEditorComponent
+        ListEditorComponent,
+        CurrentTempComponent,
+        WeatherBlockComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +27,9 @@ import { ListEditorComponent } from '../../components/list-editor/list-editor.co
         ColorInputComponent,
         ColorPickerModule,
         ColorMarkerComponent,
-        ListEditorComponent
+        ListEditorComponent,
+        CurrentTempComponent,
+        WeatherBlockComponent
     ]
 })
 export class SharedModule { }

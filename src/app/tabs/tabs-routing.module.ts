@@ -13,6 +13,11 @@ const routes: Routes = [
         data: { authGuardPipe: redirectUnauthorizedToLogin },
         children: [
             {
+                path: 'dashboard',
+                loadChildren: () =>
+                    import('../pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
+            },
+            {
                 path: 'lists',
                 children: [
                     {
@@ -28,14 +33,14 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: '/tabs/lists',
+                redirectTo: '/tabs/dashboard',
                 pathMatch: 'full'
             }
         ]
     },
     {
         path: '',
-        redirectTo: '/tabs/lists',
+        redirectTo: '/tabs/dashboard',
         pathMatch: 'full'
     }
 ];

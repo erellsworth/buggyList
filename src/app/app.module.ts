@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import firebaseCredentials from 'firebase.config';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent],
@@ -23,7 +24,8 @@ import firebaseCredentials from 'firebase.config';
         AppRoutingModule,
         AngularFireModule.initializeApp(firebaseCredentials),
         AngularFireAuthModule,
-        IonicStorageModule.forRoot()
+        IonicStorageModule.forRoot(),
+        HttpClientModule
     ],
     providers: [
         StatusBar,
