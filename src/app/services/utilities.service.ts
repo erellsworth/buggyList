@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MemoryHole } from './stores/memory-hole';
-import { IAppData, IListItem, IList, IBaseData } from './interfaces';
+import { MemoryHole } from '../stores/memory-hole';
+import { IAppData, IListItem, IList } from '../interfaces';
 
 @Injectable({
     providedIn: 'root'

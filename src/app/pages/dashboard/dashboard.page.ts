@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IWeather } from '../../interfaces';
-import { TimeService } from '../../time.service';
-import { WeatherService } from '../../weather.service';
+import { TimeService } from '../../services/time.service';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
     selector: 'app-dashboard',

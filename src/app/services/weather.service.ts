@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IWeather } from './interfaces';
+import { IWeather } from '../interfaces';
 import { TimeService } from './time.service';
 
 @Injectable({

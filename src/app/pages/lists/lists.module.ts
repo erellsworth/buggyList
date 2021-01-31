@@ -8,7 +8,6 @@ import { ListsPageRoutingModule } from './lists-routing.module';
 
 import { ListsPage } from './lists.page';
 import { SharedModule } from '../../modules/shared/shared.module';
-// import { ListMakerComponent } from '../../components/list-maker/list-maker.component';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 
 @NgModule({

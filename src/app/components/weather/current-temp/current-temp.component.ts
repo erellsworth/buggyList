@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IWeather } from '../../../interfaces';
-import { WeatherService } from '../../../weather.service';
+import { WeatherService } from '../../../services/weather.service';
 
 @Component({
     selector: 'app-current-temp',
@@ -13,7 +13,7 @@ export class CurrentTempComponent implements OnInit {
 
     constructor(private weatherSrv: WeatherService) {
         weatherSrv.weather.subscribe((weather: IWeather) => {
-            console.log('weather found', weather.current);
+            // console.log('weather found', weather.current);
             if (weather.current) {
                 this.temp = weather.current.temp;
             }

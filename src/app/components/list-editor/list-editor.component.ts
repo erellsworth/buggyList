@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { IList, IAppData } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
-import { UtilitiesService } from '../../utilities.service';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
     selector: 'app-list-editor',

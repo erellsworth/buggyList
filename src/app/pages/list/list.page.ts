@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAppData, IList, IListItem } from '../../interfaces';
 import { MemoryHole } from '../../stores/memory-hole';
-import { UtilitiesService } from '../../utilities.service';
+import { UtilitiesService } from '../../services/utilities.service';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 import { ItemEditorComponent } from '../../components/item-editor/item-editor.component';
