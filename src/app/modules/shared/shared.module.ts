@@ -8,6 +8,7 @@ import { ColorMarkerComponent } from '../../components/color-marker/color-marker
 import { ListEditorComponent } from '../../components/list-editor/list-editor.component';
 import { CurrentTempComponent } from '../../components/weather/current-temp/current-temp.component';
 import { WeatherBlockComponent } from '../../components/weather/weather-block/weather-block.component';
+import { ThermostatControlsComponent } from '../../components/smarthome/thermostat-controls/thermostat-controls.component';
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -15,7 +16,8 @@ import { WeatherBlockComponent } from '../../components/weather/weather-block/we
         ColorMarkerComponent,
         ListEditorComponent,
         CurrentTempComponent,
-        WeatherBlockComponent
+        WeatherBlockComponent,
+        ThermostatControlsComponent
     ],
     imports: [
         CommonModule,
@@ -29,7 +31,8 @@ import { WeatherBlockComponent } from '../../components/weather/weather-block/we
         ColorMarkerComponent,
         ListEditorComponent,
         CurrentTempComponent,
-        WeatherBlockComponent
+        WeatherBlockComponent,
+        ThermostatControlsComponent
     ]
 })
 export class SharedModule { }

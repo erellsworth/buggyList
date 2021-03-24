@@ -23,7 +23,6 @@ export class DashboardPage implements OnInit {
         });
 
         weatherService.weather.subscribe((weather: IWeather) => {
-            console.log('weather found', weather);
             if (weather) {
                 this.weather = weather;
             }

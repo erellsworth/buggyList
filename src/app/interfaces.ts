@@ -65,3 +65,11 @@ export interface IWeather {
     current: IWeatherData;
     hourly: IWeatherData[];
 }
+
+export interface IEcoBeeAuthResponse {
+    ecobeePin: string;
+    code: string;
+    interval: number;
+    expires_in: number
+    scope: string;
+}
